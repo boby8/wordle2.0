@@ -30,11 +30,16 @@ export default function Cell({
   const activeClass = isActive
     ? "ring-2 ring-blue-400 ring-offset-2 ring-offset-black"
     : "";
+
+  // Highlight required length area with a distinct border
+  // Cells within required length get a teal border to show the valid area
   const highlightClass =
     isHighlighted && state === "empty"
-      ? "ring-2 ring-green-400 ring-offset-1 ring-offset-black"
+      ? "border-teal-500/60 border-dashed"
       : "";
-  const shadowClass = isShadowed ? "opacity-40" : "";
+
+  // Shadow cells outside required length - these are not part of the answer
+  const shadowClass = isShadowed ? "opacity-25 border-gray-600/50" : "";
 
   return (
     <div

@@ -48,14 +48,11 @@ export function calculateGridDimensions(
   attempts: Attempt[],
   currentGuess: string
 ): { width: number; height: number } {
-  const maxGuessLength = Math.max(
-    requiredLength,
-    ...attempts.map((a) => a.guess.length),
-    currentGuess.length
-  );
+  // Fixed width of 12 columns
+  const FIXED_GRID_WIDTH = 12;
 
   return {
-    width: maxGuessLength,
+    width: FIXED_GRID_WIDTH,
     height: attempts.length + (currentGuess.length > 0 ? 1 : 0),
   };
 }

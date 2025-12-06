@@ -1,8 +1,5 @@
 import type { Puzzle } from "../types/game";
-import {
-  generatePuzzleFromEmojis,
-  getRandomEmojiMapping,
-} from "./emojiWordMapper";
+import { getRandomEmojiMapping } from "./emojiWordMapper";
 
 /**
  * Generate a deterministic puzzle based on date
