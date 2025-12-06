@@ -12,10 +12,10 @@ interface CellProps {
 }
 
 const stateColors = {
-  empty: "bg-gray-800 border-gray-700",
+  empty: "bg-gray-300 dark:bg-gray-800 border-gray-400 dark:border-gray-700",
   correct: "bg-green-600 border-green-500",
   present: "bg-orange-500 border-orange-400",
-  absent: "bg-gray-700 border-gray-600",
+  absent: "bg-gray-400 dark:bg-gray-700 border-gray-500 dark:border-gray-600",
 };
 
 const Cell = memo(function Cell({
@@ -26,10 +26,10 @@ const Cell = memo(function Cell({
   isShadowed = false,
 }: CellProps) {
   const baseClasses =
-    "w-14 h-14 border-2 flex items-center justify-center text-2xl font-bold text-white transition-all duration-200";
+    "w-14 h-14 border-2 flex items-center justify-center text-2xl font-bold text-gray-900 dark:text-white transition-all duration-200";
   const stateClass = stateColors[state];
   const activeClass = isActive
-    ? "ring-2 ring-blue-400 ring-offset-2 ring-offset-black"
+    ? "ring-2 ring-blue-400 ring-offset-2 ring-offset-white dark:ring-offset-black"
     : "";
 
   // Highlight required length area with a distinct border

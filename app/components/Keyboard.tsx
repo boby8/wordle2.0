@@ -11,10 +11,12 @@ const KEYBOARD_LAYOUT = [
 ];
 
 const stateColors: Record<CellState, string> = {
-  empty: "bg-gray-700 hover:bg-gray-600",
-  correct: "bg-green-600 hover:bg-green-500",
-  present: "bg-orange-500 hover:bg-orange-400",
-  absent: "bg-gray-600 hover:bg-gray-500",
+  empty:
+    "bg-gray-300 dark:bg-gray-700 hover:bg-gray-400 dark:hover:bg-gray-600 text-gray-900 dark:text-white",
+  correct: "bg-green-600 hover:bg-green-500 text-white",
+  present: "bg-orange-500 hover:bg-orange-400 text-white",
+  absent:
+    "bg-gray-400 dark:bg-gray-600 hover:bg-gray-500 dark:hover:bg-gray-500 text-gray-900 dark:text-white",
 };
 
 export default function Keyboard() {
@@ -51,9 +53,9 @@ export default function Keyboard() {
             const state = getKeyState(key);
             const isSpecial = key === "ENTER" || key === "BACKSPACE";
             const baseClasses =
-              "px-2 sm:px-3 py-3 sm:py-4 text-xs sm:text-sm font-bold text-white rounded transition-colors min-w-[32px] sm:min-w-[40px] flex items-center justify-center";
+              "px-2 sm:px-3 py-3 sm:py-4 text-xs sm:text-sm font-bold rounded transition-colors min-w-[32px] sm:min-w-[40px] flex items-center justify-center";
             const stateClass = isSpecial
-              ? "bg-gray-700 hover:bg-gray-600"
+              ? "bg-gray-300 dark:bg-gray-700 hover:bg-gray-400 dark:hover:bg-gray-600 text-gray-900 dark:text-white"
               : stateColors[state];
 
             return (
