@@ -1,5 +1,6 @@
 "use client";
 
+import { useCallback, useMemo } from "react";
 import { useGameStore } from "../store/gameStore";
 import type { CellState } from "../types/game";
 
@@ -20,25 +21,31 @@ export default function Keyboard() {
   const { addLetter, removeLetter, submitGuess, keyboardState, isGameOver } =
     useGameStore();
 
-  const handleKeyClick = (key: string) => {
-    if (isGameOver) return;
+  const handleKeyClick = useCallback(
+    (key: string) => {
+      if (isGameOver) return;
 
-    if (key === "ENTER") {
-      submitGuess();
-    } else if (key === "BACKSPACE") {
-      removeLetter();
-    } else {
-      addLetter(key);
-    }
-  };
+      if (key === "ENTER") {
+        submitGuess();
+      } else if (key === "BACKSPACE") {
+        removeLetter();
+      } else {
+        addLetter(key);
+      }
+    },
+    [isGameOver, addLetter, removeLetter, submitGuess]
+  );
 
-  const getKeyState = (key: string): CellState => {
-    return keyboardState[key] || "empty";
-  };
+  const getKeyState = useCallback(
+    (key: string): CellState => {
+      return keyboardState[key] || "empty";
+    },
+    [keyboardState]
+  );
 
-  return (
-    <div className="flex flex-col gap-2 items-center mt-6 sm:mt-8 max-w-full px-2">
-      {KEYBOARD_LAYOUT.map((row, rowIndex) => (
+  const keyboardRows = useMemo(
+    () =>
+      KEYBOARD_LAYOUT.map((row, rowIndex) => (
         <div key={rowIndex} className="flex gap-1 flex-wrap justify-center">
           {row.map((key) => {
             const state = getKeyState(key);
@@ -65,7 +72,13 @@ export default function Keyboard() {
             );
           })}
         </div>
-      ))}
+      )),
+    [getKeyState, handleKeyClick, isGameOver]
+  );
+
+  return (
+    <div className="flex flex-col gap-2 items-center mt-6 sm:mt-8 max-w-full px-2">
+      {keyboardRows}
     </div>
   );
 }

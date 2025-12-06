@@ -1,10 +1,11 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useCallback } from "react";
 import { useGameStore } from "../store/gameStore";
 import Grid from "./Grid";
 import Keyboard from "./Keyboard";
 import EmojiHints from "./EmojiHints";
+import PlayAgainButton from "./PlayAgainButton";
 
 export default function GameController() {
   const {
@@ -17,8 +18,8 @@ export default function GameController() {
     errorMessage,
   } = useGameStore();
 
-  useEffect(() => {
-    const handleKeyPress = (e: KeyboardEvent) => {
+  const handleKeyPress = useCallback(
+    (e: KeyboardEvent) => {
       if (isGameOver) return;
 
       if (e.key === "Enter") {
@@ -31,11 +32,14 @@ export default function GameController() {
         e.preventDefault();
         addLetter(e.key);
       }
-    };
+    },
+    [isGameOver, addLetter, removeLetter, submitGuess]
+  );
 
+  useEffect(() => {
     window.addEventListener("keydown", handleKeyPress);
     return () => window.removeEventListener("keydown", handleKeyPress);
-  }, [isGameOver, addLetter, removeLetter, submitGuess]);
+  }, [handleKeyPress]);
 
   if (!puzzle) {
     return (
@@ -76,14 +80,7 @@ export default function GameController() {
       </div>
       <Keyboard />
 
-      {isGameOver && (
-        <button
-          onClick={() => useGameStore.getState().resetGame()}
-          className="mt-6 sm:mt-8 px-6 py-3 bg-green-600 hover:bg-green-500 text-white font-bold rounded-lg transition-colors shadow-lg"
-        >
-          Play Again
-        </button>
-      )}
+      {isGameOver && <PlayAgainButton />}
     </div>
   );
 }

@@ -1,8 +1,11 @@
 "use client";
 
 import { create } from "zustand";
-import type { Puzzle, Attempt, GameState, CellState } from "../types/game";
+import type { Puzzle, Attempt, GameState } from "../types/game";
 import { evaluateGuess, normalizeGuess, isValidWord } from "../lib/gameLogic";
+import { updateKeyboardState } from "../lib/keyboardState";
+import { GAME_CONSTANTS } from "../lib/constants";
+import { validatePuzzle } from "../lib/puzzleValidation";
 
 interface GameStore extends GameState {
   initializeGame: (puzzle: Puzzle) => void;
@@ -10,7 +13,6 @@ interface GameStore extends GameState {
   removeLetter: () => void;
   submitGuess: () => void;
   resetGame: () => void;
-  updateKeyboardState: (guess: string, result: CellState[]) => void;
 }
 
 const initialState: GameState = {
@@ -29,6 +31,16 @@ export const useGameStore = create<GameStore>((set, get) => ({
   ...initialState,
 
   initializeGame: (puzzle: Puzzle) => {
+    // Validate puzzle before initializing
+    if (!validatePuzzle(puzzle)) {
+      console.error("Invalid puzzle data:", puzzle);
+      set({
+        ...initialState,
+        errorMessage: "Invalid puzzle data",
+      });
+      return;
+    }
+
     set({
       ...initialState,
       puzzle,
@@ -42,7 +54,11 @@ export const useGameStore = create<GameStore>((set, get) => ({
     if (isGameOver || !puzzle) return;
 
     const normalized = normalizeGuess(letter);
-    if (normalized && /^[A-Z]$/.test(normalized)) {
+    if (
+      normalized &&
+      /^[A-Z]$/.test(normalized) &&
+      currentGuess.length < GAME_CONSTANTS.GRID.FIXED_WIDTH
+    ) {
       set({ currentGuess: currentGuess + normalized, errorMessage: null });
     }
   },
@@ -64,12 +80,17 @@ export const useGameStore = create<GameStore>((set, get) => ({
     set({ errorMessage: null });
 
     if (!normalized) {
-      set({ errorMessage: "Please enter a word" });
+      set({ errorMessage: GAME_CONSTANTS.ERRORS.EMPTY_WORD });
+      return;
+    }
+
+    if (normalized.length > GAME_CONSTANTS.GRID.FIXED_WIDTH) {
+      set({ errorMessage: GAME_CONSTANTS.ERRORS.WORD_TOO_LONG });
       return;
     }
 
     if (!isValidWord(normalized)) {
-      set({ errorMessage: "Not a valid word" });
+      set({ errorMessage: GAME_CONSTANTS.ERRORS.INVALID_WORD });
       return;
     }
 
@@ -80,22 +101,12 @@ export const useGameStore = create<GameStore>((set, get) => ({
     const hasWon = normalized === puzzle.answer.toUpperCase();
     const isGameOverNow = hasWon || newAttempts.length >= puzzle.maxAttempts;
 
-    // Update keyboard state
-    const keyboardState = { ...get().keyboardState };
-    for (let i = 0; i < normalized.length; i++) {
-      const letter = normalized[i];
-      const currentState = keyboardState[letter];
-      const newState = result[i];
-
-      // Only update if new state is better (correct > present > absent)
-      if (
-        !currentState ||
-        newState === "correct" ||
-        (newState === "present" && currentState === "absent")
-      ) {
-        keyboardState[letter] = newState;
-      }
-    }
+    // Update keyboard state using utility function
+    const keyboardState = updateKeyboardState(
+      get().keyboardState,
+      normalized,
+      result
+    );
 
     set({
       attempts: newAttempts,
@@ -113,23 +124,5 @@ export const useGameStore = create<GameStore>((set, get) => ({
     if (puzzle) {
       get().initializeGame(puzzle);
     }
-  },
-
-  updateKeyboardState: (guess: string, result: CellState[]) => {
-    const keyboardState = { ...get().keyboardState };
-    for (let i = 0; i < guess.length; i++) {
-      const letter = guess[i];
-      const currentState = keyboardState[letter];
-      const newState = result[i];
-
-      if (
-        !currentState ||
-        newState === "correct" ||
-        (newState === "present" && currentState === "absent")
-      ) {
-        keyboardState[letter] = newState;
-      }
-    }
-    set({ keyboardState });
   },
 }));

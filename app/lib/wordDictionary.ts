@@ -1,26 +1,51 @@
 import words from "an-array-of-english-words";
 
-// Convert to Set for O(1) lookup
-const wordSet = new Set(words.map((word: string) => word.toUpperCase()));
+// Lazy-load dictionary - initialize on first use
+let wordSet: Set<string> | null = null;
+let wordsByLength: Record<number, Set<string>> | null = null;
 
-// Filter words by length for faster lookups
-const wordsByLength: Record<number, Set<string>> = {};
-
-words.forEach((word: string) => {
-  const upper = word.toUpperCase();
-  const len = upper.length;
-  if (!wordsByLength[len]) {
-    wordsByLength[len] = new Set();
+function ensureInitialized() {
+  if (wordSet && wordsByLength) {
+    return; // Already initialized
   }
-  wordsByLength[len].add(upper);
-});
+
+  // Get words array (handle both default export and named export)
+  const wordsArray = Array.isArray(words)
+    ? words
+    : (words as { default?: string[] }).default || [];
+
+  // Convert to Set for O(1) lookup
+  wordSet = new Set(wordsArray.map((word: string) => word.toUpperCase()));
+
+  // Filter words by length for faster lookups
+  wordsByLength = {};
+
+  wordsArray.forEach((word: string) => {
+    const upper = word.toUpperCase();
+    const len = upper.length;
+    if (!wordsByLength![len]) {
+      wordsByLength![len] = new Set();
+    }
+    wordsByLength![len].add(upper);
+  });
+}
 
 export function isValidEnglishWord(word: string): boolean {
+  ensureInitialized();
+  if (!wordSet) {
+    // Fallback if initialization failed
+    console.warn("Dictionary not initialized, skipping validation");
+    return true; // Allow word to pass validation if dictionary fails
+  }
   const upper = word.toUpperCase();
   return wordSet.has(upper);
 }
 
 export function getWordsByLength(length: number): string[] {
+  ensureInitialized();
+  if (!wordsByLength) {
+    return [];
+  }
   return Array.from(wordsByLength[length] || []);
 }
 
@@ -28,6 +53,10 @@ export function searchWordsByPattern(
   pattern: string,
   length?: number
 ): string[] {
+  ensureInitialized();
+  if (!wordSet || !wordsByLength) {
+    return [];
+  }
   const upperPattern = pattern.toUpperCase();
   const searchSet = length ? wordsByLength[length] || new Set() : wordSet;
 

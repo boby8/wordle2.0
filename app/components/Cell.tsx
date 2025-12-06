@@ -1,5 +1,6 @@
 "use client";
 
+import { memo } from "react";
 import type { CellState } from "../types/game";
 
 interface CellProps {
@@ -17,7 +18,7 @@ const stateColors = {
   absent: "bg-gray-700 border-gray-600",
 };
 
-export default function Cell({
+const Cell = memo(function Cell({
   letter,
   state,
   isActive = false,
@@ -48,4 +49,6 @@ export default function Cell({
       {letter}
     </div>
   );
-}
+});
+
+export default Cell;

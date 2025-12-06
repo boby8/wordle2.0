@@ -1,17 +1,26 @@
 import type { Puzzle } from "../types/game";
-import { getRandomEmojiMapping } from "./emojiWordMapper";
+import { emojiMappings } from "./emojiWordMapper";
+import { GAME_CONSTANTS } from "./constants";
 
 /**
  * Generate a deterministic puzzle based on date
  * Same date = same puzzle for all users
+ * Uses UTC date to ensure consistency across timezones
  */
-export function getDailyPuzzle(date: Date = new Date()): Puzzle {
-  // Use date as seed for deterministic puzzle selection
-  const dateString = date.toISOString().split("T")[0]; // YYYY-MM-DD
+export function getDailyPuzzle(date?: Date): Puzzle {
+  // Use UTC date to ensure consistency across timezones
+  // If no date provided, use current UTC date
+  const now = date || new Date();
+  const dateString = new Date(
+    Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate())
+  )
+    .toISOString()
+    .split("T")[0]; // YYYY-MM-DD in UTC
   const seed = hashString(dateString);
 
-  // Get emoji mapping based on seed
-  const emojiMapping = getRandomEmojiMapping();
+  // Get emoji mapping based on seed (deterministic)
+  const mappingIndex = seed % emojiMappings.length;
+  const emojiMapping = emojiMappings[mappingIndex];
   const words = emojiMapping.words;
 
   // Select word based on seed
@@ -23,7 +32,7 @@ export function getDailyPuzzle(date: Date = new Date()): Puzzle {
     requiredLength: answer.length,
     answer,
     emojis: emojiMapping.emojis,
-    maxAttempts: 6,
+    maxAttempts: GAME_CONSTANTS.GRID.MAX_ATTEMPTS,
   };
 }
 

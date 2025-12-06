@@ -1,5 +1,6 @@
 import type { CellState, Attempt } from "../types/game";
 import { isValidEnglishWord } from "./wordDictionary";
+import { GAME_CONSTANTS } from "./constants";
 
 export function normalizeGuess(guess: string): string {
   return guess.toUpperCase().replace(/[^A-Z]/g, "");
@@ -48,11 +49,8 @@ export function calculateGridDimensions(
   attempts: Attempt[],
   currentGuess: string
 ): { width: number; height: number } {
-  // Fixed width of 12 columns
-  const FIXED_GRID_WIDTH = 12;
-
   return {
-    width: FIXED_GRID_WIDTH,
+    width: GAME_CONSTANTS.GRID.FIXED_WIDTH,
     height: attempts.length + (currentGuess.length > 0 ? 1 : 0),
   };
 }
@@ -60,6 +58,10 @@ export function calculateGridDimensions(
 export function isValidWord(word: string): boolean {
   // Basic format check
   if (!/^[A-Z]+$/.test(word) || word.length === 0) {
+    return false;
+  }
+  // Check length constraint
+  if (word.length > GAME_CONSTANTS.GRID.FIXED_WIDTH) {
     return false;
   }
   // Check against English dictionary
