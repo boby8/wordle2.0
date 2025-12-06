@@ -32,10 +32,7 @@ export function useTheme() {
     // Add new theme class
     root.classList.add(themeDef.className);
     root.setAttribute("data-theme", themeName);
-    root.style.colorScheme =
-      themeName === "dark" || themeName === "night" || themeName === "neon"
-        ? "dark"
-        : "light";
+    root.style.colorScheme = themeName === "dark" ? "dark" : "light";
   }, []);
 
   // Lazy initialization to avoid setState in effect

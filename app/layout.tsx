@@ -34,11 +34,12 @@ export default function RootLayout({
                 const themes = {
                   light: 'theme-light',
                   dark: 'theme-dark',
-                  day: 'theme-day',
-                  night: 'theme-night',
-                  retro: 'theme-retro',
-                  neon: 'theme-neon',
-                  emoji: 'theme-emoji'
+                  cowprint: 'theme-cowprint',
+                  watercolor: 'theme-watercolor',
+                  floral: 'theme-floral',
+                  sunset: 'theme-sunset',
+                  vintage: 'theme-vintage',
+                  geometric: 'theme-geometric'
                 };
                 const savedTheme = localStorage.getItem('theme') || '${DEFAULT_THEME}';
                 const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -47,7 +48,7 @@ export default function RootLayout({
                 const root = document.documentElement;
                 Object.values(themes).forEach(cls => root.classList.remove(cls));
                 root.classList.add(className);
-                root.style.colorScheme = (theme === 'dark' || theme === 'night' || theme === 'neon') ? 'dark' : 'light';
+                root.style.colorScheme = (theme === 'dark') ? 'dark' : 'light';
               })();
             `,
           }}

@@ -81,129 +81,154 @@
   --shadow: rgba(0, 0, 0, 0.5);
 }
 
-/* Day Theme */
-.theme-day {
+/* Cow Print Theme - Brown/White Pattern */
+.theme-cowprint {
   color-scheme: light;
-  --bg: #fffbec;
-  --text: #2d2a26;
-  --tile-bg: #fff3d0;
-  --tile-border: #e2c680;
-  --tile-text: #2d2a26;
-  --tile-empty: #fff8e1;
-  --tile-empty-border: #e2c680;
-  --correct: #4caf50;
-  --correct-border: #3d8b40;
-  --present: #ff9800;
-  --present-border: #f57c00;
-  --absent: #9e9e9e;
-  --absent-border: #757575;
-  --keyboard-bg: #ffe082;
-  --keyboard-text: #2d2a26;
-  --keyboard-hover: #ffd54f;
-  --error: #f44336;
-  --success: #4caf50;
-  --highlight: #00bcd4;
-  --shadow: rgba(0, 0, 0, 0.15);
+  --bg: #f5f5dc;
+  --text: #5d4037;
+  --tile-bg: #fff8e1;
+  --tile-border: #8d6e63;
+  --tile-text: #5d4037;
+  --tile-empty: #fffef7;
+  --tile-empty-border: #8d6e63;
+  --correct: #6d4c41;
+  --correct-border: #5d4037;
+  --present: #a1887f;
+  --present-border: #8d6e63;
+  --absent: #bcaaa4;
+  --absent-border: #a1887f;
+  --keyboard-bg: #efebe9;
+  --keyboard-text: #5d4037;
+  --keyboard-hover: #d7ccc8;
+  --error: #d32f2f;
+  --success: #388e3c;
+  --highlight: #8d6e63;
+  --shadow: rgba(93, 64, 55, 0.2);
 }
 
-/* Night Theme */
-.theme-night {
-  color-scheme: dark;
-  --bg: #0d0f16;
-  --text: #e9ecf2;
-  --tile-bg: #141822;
-  --tile-border: #2c3240;
-  --tile-text: #e9ecf2;
-  --tile-empty: #1a1d26;
-  --tile-empty-border: #2c3240;
-  --correct: #4a9eff;
-  --correct-border: #3a8eef;
+/* Watercolor Theme - Blue/Grey Minimalist */
+.theme-watercolor {
+  color-scheme: light;
+  --bg: #e8e8e8;
+  --text: #2c3e50;
+  --tile-bg: #f5f5f5;
+  --tile-border: #4a90e2;
+  --tile-text: #2c3e50;
+  --tile-empty: #fffef7;
+  --tile-empty-border: #4a90e2;
+  --correct: #6aaa64;
+  --correct-border: #5a9a54;
+  --present: #c9b458;
+  --present-border: #b9a448;
+  --absent: #787c7e;
+  --absent-border: #686c6e;
+  --keyboard-bg: #d3d6da;
+  --keyboard-text: #2c3e50;
+  --keyboard-hover: #c3c6ca;
+  --error: #dc2626;
+  --success: #16a34a;
+  --highlight: #4a90e2;
+  --shadow: rgba(74, 144, 226, 0.2);
+}
+
+/* Floral Theme - Pink/Beige Vintage */
+.theme-floral {
+  color-scheme: light;
+  --bg: #faf5f0;
+  --text: #5d4037;
+  --tile-bg: #fff0f5;
+  --tile-border: #d4a5a5;
+  --tile-text: #5d4037;
+  --tile-empty: #fff8f5;
+  --tile-empty-border: #d4a5a5;
+  --correct: #c48b9f;
+  --correct-border: #b8758f;
+  --present: #f4a5c0;
+  --present-border: #e895b0;
+  --absent: #d4a5a5;
+  --absent-border: #c49595;
+  --keyboard-bg: #ffe5e5;
+  --keyboard-text: #5d4037;
+  --keyboard-hover: #ffd1dc;
+  --error: #d32f2f;
+  --success: #81c784;
+  --highlight: #f4a5c0;
+  --shadow: rgba(212, 165, 165, 0.3);
+}
+
+/* Sunset Theme - Orange/Purple Gradient */
+.theme-sunset {
+  color-scheme: light;
+  --bg: #fff4e6;
+  --text: #6a1b9a;
+  --tile-bg: #ffe0b2;
+  --tile-border: #ab47bc;
+  --tile-text: #6a1b9a;
+  --tile-empty: #fff3e0;
+  --tile-empty-border: #ab47bc;
+  --correct: #ff6f00;
+  --correct-border: #e65100;
   --present: #ffa726;
   --present-border: #ff9800;
-  --absent: #546e7a;
-  --absent-border: #455a64;
-  --keyboard-bg: #1e2129;
-  --keyboard-text: #e9ecf2;
-  --keyboard-hover: #252831;
-  --error: #ef5350;
+  --absent: #ba68c8;
+  --absent-border: #ab47bc;
+  --keyboard-bg: #f8bbd0;
+  --keyboard-text: #6a1b9a;
+  --keyboard-hover: #f48fb1;
+  --error: #d32f2f;
   --success: #66bb6a;
-  --highlight: #29b6f6;
-  --shadow: rgba(0, 0, 0, 0.6);
+  --highlight: #ff6f00;
+  --shadow: rgba(171, 71, 188, 0.3);
 }
 
-/* Retro Theme */
-.theme-retro {
+/* Vintage Theme - Beige Paper */
+.theme-vintage {
   color-scheme: light;
-  --bg: #1a1a2e;
-  --text: #f0f0f0;
-  --tile-bg: #16213e;
-  --tile-border: #0f3460;
-  --tile-text: #f0f0f0;
-  --tile-empty: #1a1a2e;
-  --tile-empty-border: #0f3460;
-  --correct: #e94560;
-  --correct-border: #d93550;
-  --present: #ffd93d;
-  --present-border: #ffcc00;
-  --absent: #533483;
-  --absent-border: #432d63;
-  --keyboard-bg: #0f3460;
-  --keyboard-text: #f0f0f0;
-  --keyboard-hover: #1a4a7a;
-  --error: #e94560;
-  --success: #4ecdc4;
-  --highlight: #ffd93d;
-  --shadow: rgba(233, 69, 96, 0.3);
+  --bg: #f5f1e8;
+  --text: #5d4037;
+  --tile-bg: #faf8f3;
+  --tile-border: #8d6e63;
+  --tile-text: #5d4037;
+  --tile-empty: #fffef7;
+  --tile-empty-border: #8d6e63;
+  --correct: #8d6e63;
+  --correct-border: #6d4c41;
+  --present: #a1887f;
+  --present-border: #8d6e63;
+  --absent: #bcaaa4;
+  --absent-border: #a1887f;
+  --keyboard-bg: #efebe9;
+  --keyboard-text: #5d4037;
+  --keyboard-hover: #d7ccc8;
+  --error: #d32f2f;
+  --success: #66bb6a;
+  --highlight: #8d6e63;
+  --shadow: rgba(93, 64, 55, 0.2);
 }
 
-/* Neon Theme */
-.theme-neon {
-  color-scheme: dark;
-  --bg: #02001f;
-  --text: #ff00ff;
-  --tile-bg: #050046;
-  --tile-border: #4d00ff;
-  --tile-text: #00ffff;
-  --tile-empty: #0a0033;
-  --tile-empty-border: #4d00ff;
-  --correct: #00ff00;
-  --correct-border: #00cc00;
-  --present: #ffff00;
-  --present-border: #cccc00;
-  --absent: #ff00ff;
-  --absent-border: #cc00cc;
-  --keyboard-bg: #0d004d;
-  --keyboard-text: #00ffff;
-  --keyboard-hover: #150066;
-  --error: #ff0040;
-  --success: #00ff00;
-  --highlight: #00ffff;
-  --shadow: rgba(0, 255, 255, 0.3);
-}
-
-/* Emoji Theme */
-.theme-emoji {
+/* Geometric Theme - Yellow with Shapes */
+.theme-geometric {
   color-scheme: light;
-  --bg: #fff5f5;
-  --text: #2d1b1b;
-  --tile-bg: #ffe5e5;
-  --tile-border: #ffb3b3;
-  --tile-text: #2d1b1b;
-  --tile-empty: #fff0f0;
-  --tile-empty-border: #ffb3b3;
-  --correct: #4ade80;
-  --correct-border: #22c55e;
-  --present: #fbbf24;
-  --present-border: #f59e0b;
-  --absent: #94a3b8;
-  --absent-border: #64748b;
-  --keyboard-bg: #ffd1dc;
-  --keyboard-text: #2d1b1b;
-  --keyboard-hover: #ffb3c6;
-  --error: #f87171;
-  --success: #4ade80;
-  --highlight: #60a5fa;
-  --shadow: rgba(255, 182, 193, 0.3);
+  --bg: #fff9c4;
+  --text: #5d4037;
+  --tile-bg: #fffde7;
+  --tile-border: #f9a825;
+  --tile-text: #5d4037;
+  --tile-empty: #fffde7;
+  --tile-empty-border: #f9a825;
+  --correct: #f9a825;
+  --correct-border: #f57f17;
+  --present: #ffb300;
+  --present-border: #ffa000;
+  --absent: #ffd54f;
+  --absent-border: #ffc107;
+  --keyboard-bg: #fff59d;
+  --keyboard-text: #5d4037;
+  --keyboard-hover: #fff176;
+  --error: #d32f2f;
+  --success: #66bb6a;
+  --highlight: #f9a825;
+  --shadow: rgba(249, 168, 37, 0.3);
 }
 
 body {

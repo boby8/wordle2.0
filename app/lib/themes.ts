@@ -1,11 +1,12 @@
 export type ThemeName =
   | "light"
   | "dark"
-  | "day"
-  | "night"
-  | "retro"
-  | "neon"
-  | "emoji";
+  | "cowprint"
+  | "watercolor"
+  | "floral"
+  | "sunset"
+  | "vintage"
+  | "geometric";
 
 export interface ThemeDefinition {
   name: ThemeName;
@@ -17,14 +18,30 @@ export interface ThemeDefinition {
 export const THEME_REGISTRY: ThemeDefinition[] = [
   { name: "light", label: "Light", className: "theme-light", icon: "🌞" },
   { name: "dark", label: "Dark", className: "theme-dark", icon: "🌚" },
-  { name: "day", label: "Day", className: "theme-day", icon: "🌤️" },
-  { name: "night", label: "Night", className: "theme-night", icon: "🌙" },
-  { name: "retro", label: "Retro", className: "theme-retro", icon: "🕹️" },
-  { name: "neon", label: "Neon", className: "theme-neon", icon: "🌈" },
-  { name: "emoji", label: "Emoji", className: "theme-emoji", icon: "🎨" },
+  {
+    name: "cowprint",
+    label: "Cow Print",
+    className: "theme-cowprint",
+    icon: "🐄",
+  },
+  {
+    name: "watercolor",
+    label: "Watercolor",
+    className: "theme-watercolor",
+    icon: "🎨",
+  },
+  { name: "floral", label: "Floral", className: "theme-floral", icon: "🌸" },
+  { name: "sunset", label: "Sunset", className: "theme-sunset", icon: "🌅" },
+  { name: "vintage", label: "Vintage", className: "theme-vintage", icon: "📜" },
+  {
+    name: "geometric",
+    label: "Geometric",
+    className: "theme-geometric",
+    icon: "🔷",
+  },
 ];
 
-export const DEFAULT_THEME: ThemeName = "dark";
+export const DEFAULT_THEME: ThemeName = "watercolor";
 
 export function getThemeDefinition(
   name: ThemeName
