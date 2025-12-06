@@ -11,13 +11,6 @@ interface CellProps {
   isShadowed?: boolean;
 }
 
-const stateColors = {
-  empty: "bg-gray-300 dark:bg-gray-800 border-gray-400 dark:border-gray-700",
-  correct: "bg-green-600 border-green-500",
-  present: "bg-orange-500 border-orange-400",
-  absent: "bg-gray-400 dark:bg-gray-700 border-gray-500 dark:border-gray-600",
-};
-
 const Cell = memo(function Cell({
   letter,
   state,
@@ -25,22 +18,34 @@ const Cell = memo(function Cell({
   isHighlighted = false,
   isShadowed = false,
 }: CellProps) {
+  const getStateStyles = (state: CellState): string => {
+    switch (state) {
+      case "correct":
+        return "bg-[var(--correct)] border-[var(--correct-border)] text-white";
+      case "present":
+        return "bg-[var(--present)] border-[var(--present-border)] text-white";
+      case "absent":
+        return "bg-[var(--absent)] border-[var(--absent-border)] text-white";
+      default:
+        return "bg-[var(--tile-empty)] border-[var(--tile-empty-border)] text-[var(--tile-text)]";
+    }
+  };
+
   const baseClasses =
-    "w-14 h-14 border-2 flex items-center justify-center text-2xl font-bold text-gray-900 dark:text-white transition-all duration-200";
-  const stateClass = stateColors[state];
+    "w-14 h-14 border-2 flex items-center justify-center text-2xl font-bold transition-all duration-200";
+  const stateClass = getStateStyles(state);
   const activeClass = isActive
-    ? "ring-2 ring-blue-400 ring-offset-2 ring-offset-white dark:ring-offset-black"
+    ? "ring-2 ring-[var(--highlight)] ring-offset-2 ring-offset-[var(--bg)]"
     : "";
 
-  // Highlight required length area with a distinct border
-  // Cells within required length get a teal border to show the valid area
   const highlightClass =
     isHighlighted && state === "empty"
-      ? "border-teal-500/60 border-dashed"
+      ? "border-[var(--highlight)]/60 border-dashed"
       : "";
 
-  // Shadow cells outside required length - these are not part of the answer
-  const shadowClass = isShadowed ? "opacity-25 border-gray-600/50" : "";
+  const shadowClass = isShadowed
+    ? "opacity-25 border-[var(--tile-border)]/50"
+    : "";
 
   return (
     <div

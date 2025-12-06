@@ -13,7 +13,7 @@ const PlayAgainButton = memo(() => {
   return (
     <button
       onClick={handleClick}
-      className="mt-6 sm:mt-8 px-6 py-3 bg-green-600 hover:bg-green-500 dark:bg-green-600 dark:hover:bg-green-500 text-white font-bold rounded-lg transition-colors shadow-lg"
+      className="mt-6 sm:mt-8 px-6 py-3 bg-[var(--success)] hover:bg-[var(--success)]/90 text-white font-bold rounded-lg transition-colors shadow-lg"
     >
       Play Again
     </button>

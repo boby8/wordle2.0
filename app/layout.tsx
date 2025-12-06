@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "./contexts/ThemeContext";
+import { DEFAULT_THEME } from "./lib/themes";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,9 +31,23 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{
             __html: `
               (function() {
-                const theme = localStorage.getItem('theme') || 
-                  (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-                document.documentElement.classList.add(theme);
+                const themes = {
+                  light: 'theme-light',
+                  dark: 'theme-dark',
+                  day: 'theme-day',
+                  night: 'theme-night',
+                  retro: 'theme-retro',
+                  neon: 'theme-neon',
+                  emoji: 'theme-emoji'
+                };
+                const savedTheme = localStorage.getItem('theme') || '${DEFAULT_THEME}';
+                const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                const theme = savedTheme || (prefersDark ? 'dark' : 'light');
+                const className = themes[theme] || themes['${DEFAULT_THEME}'];
+                const root = document.documentElement;
+                Object.values(themes).forEach(cls => root.classList.remove(cls));
+                root.classList.add(className);
+                root.style.colorScheme = (theme === 'dark' || theme === 'night' || theme === 'neon') ? 'dark' : 'light';
               })();
             `,
           }}

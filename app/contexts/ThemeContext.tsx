@@ -1,59 +1,23 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState } from "react";
-
-type Theme = "light" | "dark";
+import { createContext, useContext } from "react";
+import { useTheme as useThemeHook } from "../hooks/useTheme";
+import type { ThemeName } from "../lib/themes";
 
 interface ThemeContextType {
-  theme: Theme;
-  toggleTheme: () => void;
+  theme: ThemeName;
+  setTheme: (theme: ThemeName) => void;
+  availableThemes: ReturnType<typeof useThemeHook>["availableThemes"];
+  mounted: boolean;
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  // Initialize theme from localStorage or system preference
-  const getInitialTheme = (): Theme => {
-    if (typeof window === "undefined") return "dark";
-    const savedTheme = localStorage.getItem("theme") as Theme | null;
-    if (savedTheme) return savedTheme;
-    return window.matchMedia("(prefers-color-scheme: dark)").matches
-      ? "dark"
-      : "light";
-  };
-
-  const [theme, setTheme] = useState<Theme>(getInitialTheme);
-
-  useEffect(() => {
-    // Apply theme on initial load
-    const root = document.documentElement;
-    root.classList.remove("light", "dark");
-    root.classList.add(theme);
-    root.setAttribute("data-theme", theme);
-    root.style.colorScheme = theme;
-  }, []);
-
-  useEffect(() => {
-    // Update document class and localStorage whenever theme changes
-    const root = document.documentElement;
-    root.classList.remove("light", "dark");
-    root.classList.add(theme);
-    root.setAttribute("data-theme", theme);
-    localStorage.setItem("theme", theme);
-    root.style.colorScheme = theme;
-  }, [theme]);
-
-  const toggleTheme = () => {
-    setTheme((prev) => {
-      const newTheme = prev === "light" ? "dark" : "light";
-      return newTheme;
-    });
-  };
+  const themeData = useThemeHook();
 
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme }}>
-      {children}
-    </ThemeContext.Provider>
+    <ThemeContext.Provider value={themeData}>{children}</ThemeContext.Provider>
   );
 }
 
