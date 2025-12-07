@@ -57,7 +57,10 @@ export default function Keyboard() {
   const keyboardRows = useMemo(
     () =>
       KEYBOARD_LAYOUT.map((row, rowIndex) => (
-        <div key={rowIndex} className="flex gap-1 flex-wrap justify-center">
+        <div
+          key={rowIndex}
+          className="flex gap-1 flex-wrap justify-center w-full"
+        >
           {row.map((key) => {
             const state = getKeyState(key);
             const isSpecial = key === "ENTER" || key === "BACKSPACE";
@@ -88,7 +91,7 @@ export default function Keyboard() {
   );
 
   return (
-    <div className="flex flex-col gap-2 items-center mt-6 sm:mt-8 max-w-full px-2">
+    <div className="flex flex-col gap-2 items-center w-full px-2">
       {keyboardRows}
     </div>
   );
