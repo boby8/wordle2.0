@@ -158,27 +158,27 @@
 
 /* Sunset Theme - Orange/Purple Gradient */
 .theme-sunset {
-  color-scheme: light;
-  --bg: #fff4e6;
-  --text: #6a1b9a;
-  --tile-bg: #ffe0b2;
-  --tile-border: #ab47bc;
-  --tile-text: #6a1b9a;
-  --tile-empty: #fff3e0;
-  --tile-empty-border: #ab47bc;
-  --correct: #ff6f00;
-  --correct-border: #e65100;
-  --present: #ffa726;
-  --present-border: #ff9800;
-  --absent: #ba68c8;
-  --absent-border: #ab47bc;
-  --keyboard-bg: #f8bbd0;
-  --keyboard-text: #6a1b9a;
-  --keyboard-hover: #f48fb1;
-  --error: #d32f2f;
-  --success: #66bb6a;
-  --highlight: #ff6f00;
-  --shadow: rgba(171, 71, 188, 0.3);
+  color-scheme: dark;
+  --bg: #2c1810;
+  --text: #ffffff;
+  --tile-bg: rgba(255, 255, 255, 0.15);
+  --tile-border: #ff6b35;
+  --tile-text: #ffffff;
+  --tile-empty: rgba(255, 255, 255, 0.1);
+  --tile-empty-border: #ff6b35;
+  --correct: #ff6b35;
+  --correct-border: #ff8c42;
+  --present: #5d6867;
+  --present-border: #4a5568;
+  --absent: #4a5568;
+  --absent-border: #2d3748;
+  --keyboard-bg: rgba(255, 107, 53, 0.25);
+  --keyboard-text: #ffffff;
+  --keyboard-hover: rgba(255, 107, 53, 0.4);
+  --error: #dc2626;
+  --success: #16a34a;
+  --highlight: #ff6b35;
+  --shadow: rgba(255, 107, 53, 0.3);
 }
 
 /* Vintage Theme - Beige Paper */
@@ -231,12 +231,135 @@
   --shadow: rgba(249, 168, 37, 0.3);
 }
 
+/* Christmas Theme */
+.theme-christmas {
+  color-scheme: dark;
+  --bg: #0d2818;
+  --text: #ffffff;
+  --tile-bg: rgba(255, 255, 255, 0.1);
+  --tile-border: #dc2626;
+  --tile-text: #ffffff;
+  --tile-empty: rgba(255, 255, 255, 0.15);
+  --tile-empty-border: #dc2626;
+  --correct: #16a34a;
+  --correct-border: #15803d;
+  --present: #fbbf24;
+  --present-border: #f59e0b;
+  --absent: #787c7e;
+  --absent-border: #686c6e;
+  --keyboard-bg: rgba(220, 38, 38, 0.3);
+  --keyboard-text: #ffffff;
+  --keyboard-hover: rgba(220, 38, 38, 0.5);
+  --error: #dc2626;
+  --success: #16a34a;
+  --highlight: #dc2626;
+  --shadow: rgba(220, 38, 38, 0.3);
+}
+
+
+
+.theme-christmas-bg {
+  background: linear-gradient(
+      to bottom,
+      rgba(13, 40, 24, 0.3) 0%,
+      rgba(13, 40, 24, 0.2) 100%
+    ),
+    url("/christmas.jpg");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+}
+
+.theme-vintage-bg {
+  background: linear-gradient(
+      to bottom,
+      rgba(93, 64, 55, 0.2) 0%,
+      rgba(93, 64, 55, 0.15) 100%
+    ),
+    url("/vintage.jpg");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+}
+
+.theme-light-bg {
+  background: linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.1) 0%,
+      rgba(255, 255, 255, 0.05) 100%
+    ),
+    url("/day.jpg");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+}
+
+.theme-dark-bg {
+  background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.3) 0%,
+      rgba(0, 0, 0, 0.2) 100%
+    ),
+    url("/dark.jpg");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+}
+
+.theme-geometric-bg {
+  background: linear-gradient(
+      to bottom,
+      rgba(249, 168, 37, 0.2) 0%,
+      rgba(249, 168, 37, 0.15) 100%
+    ),
+    url("/geometric.jpg");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+}
+
+.theme-sunset-bg {
+  background: linear-gradient(
+      to bottom,
+      rgba(44, 24, 16, 0.3) 0%,
+      rgba(44, 24, 16, 0.2) 100%
+    ),
+    url("/sunset.jpg");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+}
+
 body {
   background: var(--bg);
   color: var(--text);
   font-family: Arial, Helvetica, sans-serif;
   transition: background-color 0.5s cubic-bezier(0.4, 0, 0.2, 1), 
               color 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+html.theme-christmas,
+html.theme-vintage,
+html.theme-light,
+html.theme-dark,
+html.theme-geometric,
+html.theme-sunset {
+  background: transparent;
+}
+
+html.theme-christmas body,
+html.theme-vintage body,
+html.theme-light body,
+html.theme-dark body,
+html.theme-geometric body,
+html.theme-sunset body {
+  background: transparent;
 }
 
 /* Cell flip animation */

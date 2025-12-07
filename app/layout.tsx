@@ -39,7 +39,8 @@ export default function RootLayout({
                   floral: 'theme-floral',
                   sunset: 'theme-sunset',
                   vintage: 'theme-vintage',
-                  geometric: 'theme-geometric'
+                  geometric: 'theme-geometric',
+                  christmas: 'theme-christmas'
                 };
                 const savedTheme = localStorage.getItem('theme') || '${DEFAULT_THEME}';
                 const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;

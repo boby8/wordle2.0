@@ -2,6 +2,7 @@
 
 import { useEffect, useCallback } from "react";
 import { useGameStore } from "../store/gameStore";
+import { useTheme } from "../contexts/ThemeContext";
 import Grid from "./Grid";
 import Keyboard from "./Keyboard";
 import EmojiHints from "./EmojiHints";
@@ -18,6 +19,7 @@ export default function GameController() {
     puzzle,
     errorMessage,
   } = useGameStore();
+  const { theme } = useTheme();
 
   const handleKeyPress = useCallback(
     (e: KeyboardEvent) => {
@@ -51,7 +53,34 @@ export default function GameController() {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen p-4 sm:p-8 bg-[var(--bg)] text-[var(--text)] transition-colors">
+    <div className="flex flex-col items-center justify-center min-h-screen p-4 sm:p-8 text-[var(--text)] transition-colors relative">
+      <div
+        className={`fixed inset-0 -z-10 transition-all duration-500 ${
+          theme === "christmas"
+            ? "theme-christmas-bg"
+            : theme === "vintage"
+            ? "theme-vintage-bg"
+            : theme === "light"
+            ? "theme-light-bg"
+            : theme === "dark"
+            ? "theme-dark-bg"
+            : theme === "geometric"
+            ? "theme-geometric-bg"
+            : theme === "sunset"
+            ? "theme-sunset-bg"
+            : "bg-[var(--bg)]"
+        }`}
+        style={
+          theme === "christmas" ||
+          theme === "vintage" ||
+          theme === "light" ||
+          theme === "dark" ||
+          theme === "geometric" ||
+          theme === "sunset"
+            ? { zIndex: -10 }
+            : undefined
+        }
+      ></div>
       <ThemeSwitcher />
 
       <div className="w-full max-w-3xl rounded-xl p-6 sm:p-8 flex flex-col items-center shadow-2xl">

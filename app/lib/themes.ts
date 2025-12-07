@@ -6,7 +6,8 @@ export type ThemeName =
   | "floral"
   | "sunset"
   | "vintage"
-  | "geometric";
+  | "geometric"
+  | "christmas";
 
 export interface ThemeDefinition {
   name: ThemeName;
@@ -38,6 +39,12 @@ export const THEME_REGISTRY: ThemeDefinition[] = [
     label: "Geometric",
     className: "theme-geometric",
     icon: "🔷",
+  },
+  {
+    name: "christmas",
+    label: "Christmas",
+    className: "theme-christmas",
+    icon: "🎄",
   },
 ];
 
