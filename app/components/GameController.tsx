@@ -58,11 +58,11 @@ export default function GameController() {
         {isGameOver && (
           <div className="text-center mt-4">
             {hasWon ? (
-              <div className="text-[var(--success)] text-2xl sm:text-3xl">
+              <div className="text-[var(--success)] text-2xl sm:text-3xl animate-bounce">
                 🎉 You Won! 🎉
               </div>
             ) : (
-              <div className="text-[var(--present)] text-xl sm:text-2xl">
+              <div className="text-[var(--present)] text-xl sm:text-2xl animate-pulse">
                 Game Over! Answer:{" "}
                 <span className="font-mono">{puzzle.answer}</span>
               </div>

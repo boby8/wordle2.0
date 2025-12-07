@@ -12,9 +12,9 @@ export default function EmojiHints() {
     return puzzle.emojis.map((emoji, index) => (
       <div
         key={index}
-        className={`text-3xl sm:text-4xl transition-all duration-300 ${
+        className={`text-3xl sm:text-4xl transition-all duration-500 ease-out ${
           index < revealedEmojis
-            ? "opacity-100 scale-100"
+            ? "opacity-100 scale-100 animate-[reveal_0.5s_ease-out]"
             : "opacity-20 scale-90"
         }`}
       >

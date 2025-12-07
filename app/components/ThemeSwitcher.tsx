@@ -18,7 +18,7 @@ const ThemeSwitcher = memo(function ThemeSwitcher() {
     <div className="fixed top-4 right-4 z-50">
       <div className="relative group">
         <button
-          className="p-2 rounded-lg bg-[var(--keyboard-bg)] hover:bg-[var(--keyboard-hover)] text-[var(--keyboard-text)] transition-colors shadow-lg border border-[var(--tile-border)]"
+          className="p-2 rounded-lg bg-[var(--keyboard-bg)] hover:bg-[var(--keyboard-hover)] text-[var(--keyboard-text)] transition-all duration-200 shadow-lg border-0 hover:scale-110 active:scale-95"
           aria-label="Theme menu"
           aria-expanded="false"
           aria-haspopup="true"
@@ -38,16 +38,16 @@ const ThemeSwitcher = memo(function ThemeSwitcher() {
           </svg>
         </button>
 
-        <div className="absolute right-0 top-full mt-2 w-48 bg-[var(--bg)] border border-[var(--tile-border)] rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 overflow-hidden">
+        <div className="absolute right-0 top-full mt-2 w-48 bg-[var(--bg)] border-0 rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 ease-out overflow-hidden transform group-hover:scale-100 scale-95 origin-top-right">
           <div className="py-1">
             {availableThemes.map((t) => (
               <button
                 key={t.name}
                 onClick={() => setTheme(t.name)}
-                className={`w-full px-4 py-2 text-left text-sm flex items-center gap-2 transition-colors ${
+                className={`w-full px-4 py-2 text-left text-sm flex items-center gap-2 transition-all duration-200 ${
                   theme === t.name
-                    ? "bg-[var(--highlight)] text-white"
-                    : "text-[var(--text)] hover:bg-[var(--keyboard-bg)]"
+                    ? "bg-[var(--highlight)] text-white transform scale-[1.02]"
+                    : "text-[var(--text)] hover:bg-[var(--keyboard-bg)] hover:transform hover:translate-x-1"
                 }`}
               >
                 <span className="text-lg">{t.icon}</span>
