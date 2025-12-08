@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useCallback } from "react";
+import { useEffect, useCallback, useState } from "react";
 import { useGameStore } from "../store/gameStore";
 import { useTheme } from "../contexts/ThemeContext";
 import Grid from "./Grid";
@@ -8,6 +8,8 @@ import Keyboard from "./Keyboard";
 import EmojiHints from "./EmojiHints";
 import PlayAgainButton from "./PlayAgainButton";
 import ThemeSwitcher from "./ThemeSwitcher";
+import StatisticsModal from "./StatisticsModal";
+import HowToPlayModal from "./HowToPlayModal";
 
 export default function GameController() {
   const {
@@ -20,6 +22,8 @@ export default function GameController() {
     errorMessage,
   } = useGameStore();
   const { theme } = useTheme();
+  const [showStats, setShowStats] = useState(false);
+  const [showHowToPlay, setShowHowToPlay] = useState(false);
 
   const handleKeyPress = useCallback(
     (e: KeyboardEvent) => {
@@ -84,8 +88,31 @@ export default function GameController() {
       <ThemeSwitcher />
 
       <div className="w-full max-w-3xl rounded-xl p-6 sm:p-8 flex flex-col items-center shadow-2xl">
-        <div className="mb-4 text-xl sm:text-2xl font-bold w-full">
-          <div className="text-center">Wordable</div>
+        <div className="mb-6 sm:mb-8 w-full">
+          <div className="flex items-center justify-between gap-4 relative py-3 px-4 rounded-lg bg-[var(--tile-empty)]/30 backdrop-blur-sm border border-[var(--tile-border)]/50 shadow-lg">
+            <div className="flex gap-3">
+              <button
+                onClick={() => setShowHowToPlay(true)}
+                className="w-10 h-10 flex items-center justify-center text-lg bg-[var(--keyboard-bg)] hover:bg-[var(--keyboard-hover)] text-[var(--keyboard-text)] rounded-full transition-all duration-200 hover:scale-110 shadow-md hover:shadow-lg"
+                aria-label="How to play"
+              >
+                ❓
+              </button>
+              <button
+                onClick={() => setShowStats(true)}
+                className="w-10 h-10 flex items-center justify-center text-lg bg-[var(--keyboard-bg)] hover:bg-[var(--keyboard-hover)] text-[var(--keyboard-text)] rounded-full transition-all duration-200 hover:scale-110 shadow-md hover:shadow-lg"
+                aria-label="Show statistics"
+              >
+                📊
+              </button>
+            </div>
+            <div className="absolute left-1/2 transform -translate-x-1/2 text-center">
+              <h1 className="text-3xl sm:text-4xl font-extrabold text-[var(--text)] tracking-tight drop-shadow-md">
+                Wordable
+              </h1>
+            </div>
+            <div className="w-[140px]"></div>
+          </div>
           {isGameOver && (
             <div className="text-center mt-4">
               {hasWon ? (
@@ -117,6 +144,12 @@ export default function GameController() {
 
         {isGameOver && <PlayAgainButton />}
       </div>
+
+      <HowToPlayModal
+        isOpen={showHowToPlay}
+        onClose={() => setShowHowToPlay(false)}
+      />
+      <StatisticsModal isOpen={showStats} onClose={() => setShowStats(false)} />
     </div>
   );
 }

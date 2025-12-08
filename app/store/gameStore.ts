@@ -6,6 +6,7 @@ import { evaluateGuess, normalizeGuess, isValidWord } from "../lib/gameLogic";
 import { updateKeyboardState } from "../lib/keyboardState";
 import { GAME_CONSTANTS } from "../lib/constants";
 import { validatePuzzle } from "../lib/puzzleValidation";
+import { updateStats } from "../lib/stats";
 
 interface GameStore extends GameState {
   initializeGame: (puzzle: Puzzle) => void;
@@ -107,6 +108,12 @@ export const useGameStore = create<GameStore>((set, get) => ({
       normalized,
       result
     );
+
+    // Update stats when game ends
+    if (isGameOverNow) {
+      const attemptNumber = hasWon ? newAttempts.length : undefined;
+      updateStats(hasWon, attemptNumber);
+    }
 
     set({
       attempts: newAttempts,
