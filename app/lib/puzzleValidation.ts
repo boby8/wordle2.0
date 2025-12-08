@@ -1,6 +1,7 @@
 import type { Puzzle } from "../types/game";
 import { GAME_CONSTANTS } from "./constants";
 import { isValidEnglishWord } from "./wordDictionary";
+import { emojiMappings } from "./emojiWordMapper";
 
 /**
  * Validates puzzle data structure and content
@@ -28,9 +29,18 @@ export function validatePuzzle(puzzle: unknown): puzzle is Puzzle {
   if (
     answer.length === 0 ||
     answer.length > GAME_CONSTANTS.GRID.FIXED_WIDTH ||
-    !/^[A-Z]+$/.test(answer) ||
-    !isValidEnglishWord(answer)
+    !/^[A-Z]+$/.test(answer)
   ) {
+    return false;
+  }
+
+  // Check if word is valid - allow words from emoji mappings even if not in dictionary
+  const isInDictionary = isValidEnglishWord(answer);
+  const isInEmojiMappings = emojiMappings.some((mapping) =>
+    mapping.words.some((word) => word.toUpperCase() === answer)
+  );
+
+  if (!isInDictionary && !isInEmojiMappings) {
     return false;
   }
 
