@@ -23,17 +23,28 @@ export function getDailyPuzzle(date?: Date): Puzzle {
   const emojiMapping = emojiMappings[mappingIndex];
   const words = emojiMapping.words;
 
-  // Select word based on seed
-  const wordIndex = seed % words.length;
-  const answer = words[wordIndex].toUpperCase();
+  // Log selected mapping
+  console.log("Selected emoji mapping:", {
+    index: mappingIndex,
+    emojis: emojiMapping.emojis,
+    correctAnswer: emojiMapping.correctAnswer,
+    category: emojiMapping.category,
+    wordsCount: words.length,
+  });
 
-  return {
+  // Always use correctAnswer as the answer (fixed per emoji combination)
+  const answer = emojiMapping.correctAnswer.toUpperCase();
+
+  const puzzle = {
     id: `daily-${dateString}`,
     requiredLength: answer.length,
     answer,
     emojis: emojiMapping.emojis,
     maxAttempts: GAME_CONSTANTS.GRID.MAX_ATTEMPTS,
+    allowedWords: words.map((w) => w.toUpperCase()), // All words from this emoji mapping (for validation)
   };
+
+  return puzzle;
 }
 
 /**

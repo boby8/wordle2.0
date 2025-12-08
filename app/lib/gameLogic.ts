@@ -24,6 +24,10 @@ export function evaluateGuess(guess: string, answer: string): CellState[] {
       result[i] = "correct";
       guessCounts[normalizedGuess[i]] =
         (guessCounts[normalizedGuess[i]] || 0) + 1;
+    } else {
+      console.log(
+        `Position ${i}: ${normalizedGuess[i]} !== ${normalizedAnswer[i]}`
+      );
     }
   }
 
@@ -55,7 +59,7 @@ export function calculateGridDimensions(
   };
 }
 
-export function isValidWord(word: string): boolean {
+export function isValidWord(word: string, allowedWords?: string[]): boolean {
   // Basic format check
   if (!/^[A-Z]+$/.test(word) || word.length === 0) {
     return false;
@@ -64,6 +68,12 @@ export function isValidWord(word: string): boolean {
   if (word.length > GAME_CONSTANTS.GRID.FIXED_WIDTH) {
     return false;
   }
-  // Check against English dictionary
+
+  // If allowedWords provided, only check against those (puzzle-specific words)
+  if (allowedWords && allowedWords.length > 0) {
+    return allowedWords.includes(word.toUpperCase());
+  }
+
+  // Fallback: Check against English dictionary (for backwards compatibility)
   return isValidEnglishWord(word);
 }

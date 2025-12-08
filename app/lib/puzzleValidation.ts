@@ -1,7 +1,5 @@
 import type { Puzzle } from "../types/game";
 import { GAME_CONSTANTS } from "./constants";
-import { isValidEnglishWord } from "./wordDictionary";
-import { emojiMappings } from "./emojiWordMapper";
 
 /**
  * Validates puzzle data structure and content
@@ -19,7 +17,8 @@ export function validatePuzzle(puzzle: unknown): puzzle is Puzzle {
     typeof p.answer !== "string" ||
     !Array.isArray(p.emojis) ||
     typeof p.requiredLength !== "number" ||
-    typeof p.maxAttempts !== "number"
+    typeof p.maxAttempts !== "number" ||
+    !Array.isArray(p.allowedWords)
   ) {
     return false;
   }
@@ -34,13 +33,9 @@ export function validatePuzzle(puzzle: unknown): puzzle is Puzzle {
     return false;
   }
 
-  // Check if word is valid - allow words from emoji mappings even if not in dictionary
-  const isInDictionary = isValidEnglishWord(answer);
-  const isInEmojiMappings = emojiMappings.some((mapping) =>
-    mapping.words.some((word) => word.toUpperCase() === answer)
-  );
-
-  if (!isInDictionary && !isInEmojiMappings) {
+  // Check if answer is in the allowedWords array
+  const allowedWords = (p.allowedWords as string[]).map((w) => w.toUpperCase());
+  if (!allowedWords.includes(answer)) {
     return false;
   }
 

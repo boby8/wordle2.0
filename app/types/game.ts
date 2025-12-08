@@ -6,6 +6,7 @@ export type Puzzle = {
   answer: string;
   emojis: string[];
   maxAttempts: number;
+  allowedWords: string[]; // Words that can be guessed for this puzzle
 };
 
 export type Attempt = {

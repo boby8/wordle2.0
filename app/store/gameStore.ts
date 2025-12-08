@@ -89,7 +89,7 @@ export const useGameStore = create<GameStore>((set, get) => ({
       return;
     }
 
-    if (!isValidWord(normalized)) {
+    if (!isValidWord(normalized, puzzle.allowedWords)) {
       set({ errorMessage: GAME_CONSTANTS.ERRORS.INVALID_WORD });
       return;
     }
