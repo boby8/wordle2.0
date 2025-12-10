@@ -26,6 +26,7 @@ const initialState: GameState = {
   hasWon: false,
   keyboardState: {},
   errorMessage: null,
+  invalidRowIndex: null,
 };
 
 export const useGameStore = create<GameStore>((set, get) => ({
@@ -91,7 +92,14 @@ export const useGameStore = create<GameStore>((set, get) => ({
     }
 
     if (!isValidWord(normalized, puzzle.allowedWords)) {
-      set({ errorMessage: GAME_CONSTANTS.ERRORS.INVALID_WORD });
+      set({
+        errorMessage: GAME_CONSTANTS.ERRORS.INVALID_WORD,
+        invalidRowIndex: currentRow,
+      });
+      // Clear invalid row and error message after animation
+      setTimeout(() => {
+        set({ invalidRowIndex: null, errorMessage: null });
+      }, 2000);
       return;
     }
 

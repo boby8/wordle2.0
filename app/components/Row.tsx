@@ -10,6 +10,8 @@ interface RowProps {
   isActive?: boolean;
   requiredLength: number;
   gridWidth: number;
+  rowIndex: number;
+  shouldShake?: boolean;
 }
 
 const Row = memo(function Row({
@@ -18,6 +20,8 @@ const Row = memo(function Row({
   isActive = false,
   requiredLength,
   gridWidth,
+  rowIndex,
+  shouldShake = false,
 }: RowProps) {
   const cells = useMemo(() => {
     const cellsArray = [];
@@ -36,13 +40,24 @@ const Row = memo(function Row({
           isActive={isActiveCell}
           isHighlighted={isHighlighted}
           isShadowed={isShadowed}
+          cellIndex={i}
         />
       );
     }
     return cellsArray;
   }, [guess, result, isActive, requiredLength, gridWidth]);
 
-  return <div className="flex gap-1">{cells}</div>;
+  return (
+    <div className="flex gap-1 justify-center">
+      <div
+        className={`flex gap-1 ${
+          shouldShake ? "animate-[rowShake_0.5s_ease-in-out]" : ""
+        }`}
+      >
+        {cells}
+      </div>
+    </div>
+  );
 });
 
 export default Row;

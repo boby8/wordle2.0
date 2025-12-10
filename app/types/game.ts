@@ -24,4 +24,5 @@ export type GameState = {
   hasWon: boolean;
   keyboardState: Record<string, CellState>;
   errorMessage: string | null;
+  invalidRowIndex: number | null;
 };

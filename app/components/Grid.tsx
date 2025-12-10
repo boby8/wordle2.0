@@ -11,6 +11,7 @@ export default function Grid() {
   const currentGuess = useGameStore((state) => state.currentGuess);
   const currentRow = useGameStore((state) => state.currentRow);
   const isGameOver = useGameStore((state) => state.isGameOver);
+  const invalidRowIndex = useGameStore((state) => state.invalidRowIndex);
 
   const { width } = useMemo(
     () =>
@@ -41,12 +42,22 @@ export default function Grid() {
           isActive={isActive}
           requiredLength={puzzle.requiredLength}
           gridWidth={width}
+          rowIndex={i}
+          shouldShake={invalidRowIndex === i}
         />
       );
     }
 
     return rowsArray;
-  }, [puzzle, attempts, currentGuess, currentRow, isGameOver, width]);
+  }, [
+    puzzle,
+    attempts,
+    currentGuess,
+    currentRow,
+    isGameOver,
+    width,
+    invalidRowIndex,
+  ]);
 
   if (!puzzle) return null;
 

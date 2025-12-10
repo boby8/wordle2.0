@@ -9,6 +9,7 @@ interface CellProps {
   isActive?: boolean;
   isHighlighted?: boolean;
   isShadowed?: boolean;
+  cellIndex?: number;
 }
 
 const Cell = memo(function Cell({
@@ -17,6 +18,7 @@ const Cell = memo(function Cell({
   isActive = false,
   isHighlighted = false,
   isShadowed = false,
+  cellIndex = 0,
 }: CellProps) {
   const getStateStyles = (state: CellState): string => {
     switch (state) {
@@ -52,16 +54,18 @@ const Cell = memo(function Cell({
       ? "border-[var(--tile-border)]/30 opacity-50"
       : "";
 
-  // Flip animation when letter appears
-  const letterAnimation = letter ? "animate-[flip_0.3s_ease-in-out]" : "";
-
-  // Bounce animation when state changes to filled
-  const stateAnimation =
-    state !== "empty" ? "animate-[bounce_0.5s_ease-out]" : "";
+  // Wordle-style flip animation when state is revealed (not empty)
+  // Stagger the animation based on cell position
+  const flipAnimation =
+    state !== "empty" ? "animate-[wordleFlip_0.6s_ease-in-out]" : "";
+  const animationDelay = state !== "empty" ? `${cellIndex * 0.1}s` : undefined;
 
   return (
     <div
-      className={`${baseClasses} ${stateClass} ${activeClass} ${highlightClass} ${shadowClass} ${letterAnimation} ${stateAnimation}`}
+      className={`${baseClasses} ${stateClass} ${activeClass} ${highlightClass} ${shadowClass} ${flipAnimation}`}
+      style={{
+        animationDelay,
+      }}
     >
       {letter}
     </div>

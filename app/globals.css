@@ -362,8 +362,8 @@ html.theme-sunset body {
   background: transparent;
 }
 
-/* Cell flip animation */
-@keyframes flip {
+/* Wordle-style cell flip animation (180 degree rotation) */
+@keyframes wordleFlip {
   0% {
     transform: rotateX(0);
   }
@@ -372,6 +372,35 @@ html.theme-sunset body {
   }
   100% {
     transform: rotateX(0);
+  }
+}
+
+/* Row shake animation for invalid word */
+@keyframes rowShake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  10%, 30%, 50%, 70%, 90% {
+    transform: translateX(-8px);
+  }
+  20%, 40%, 60%, 80% {
+    transform: translateX(8px);
+  }
+}
+
+/* Tooltip fade in/out animation */
+@keyframes tooltipFade {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  10%, 80% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-10px);
   }
 }
 

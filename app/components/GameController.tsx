@@ -22,8 +22,8 @@ export default function GameController() {
     isGameOver,
     hasWon,
     puzzle,
-    errorMessage,
     attempts,
+    errorMessage,
   } = useGameStore();
   const { theme } = useTheme();
   const [showStats, setShowStats] = useState(false);
@@ -153,12 +153,18 @@ export default function GameController() {
           )}
         </div>
 
+        {/* Fixed height container to prevent layout shift */}
+        <div className="h-12 mt-4 flex items-center justify-center">
+          {errorMessage && (
+            <div className="w-full max-w-md mx-auto animate-[tooltipFade_2s_ease-out]">
+              <div className="px-4 py-2 bg-[var(--error)] text-white text-sm font-medium rounded-lg shadow-lg text-center">
+                {errorMessage}
+              </div>
+            </div>
+          )}
+        </div>
+
         <EmojiHints />
-        {errorMessage && (
-          <div className="mt-4 px-4 py-2 bg-[var(--error)] text-white rounded-lg text-sm font-medium animate-pulse w-full text-center">
-            {errorMessage}
-          </div>
-        )}
         <div className="mt-6 sm:mt-8 w-full flex justify-center">
           <Grid />
         </div>
