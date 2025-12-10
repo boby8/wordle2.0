@@ -1,49 +1,67 @@
 "use client";
 
 import { create } from "zustand";
-import type { Category, GameState, Movie } from "../types/game";
+import type { Category, GameState, GameMode, GameItem } from "../types/game";
 import { getMoviesByCategory } from "../data/movies";
-import { getRandomMovie, isAnswerCorrect } from "../lib/gameLogic";
+import { getSongsByCategory } from "../data/songs";
+import { getRandomItem, isAnswerCorrect } from "../lib/gameLogic";
 
 interface GameStore extends GameState {
-  currentMovie: Movie | null;
+  currentItem: GameItem | null;
+  setGameMode: (mode: GameMode) => void;
   setCategory: (category: Category) => void;
   submitAnswer: (answer: string) => void;
-  nextMovie: () => void;
+  nextItem: () => void;
   resetGame: () => void;
 }
 
 const initialState: GameState = {
+  gameMode: "movies",
   selectedCategory: "bollywood",
-  currentMovieIndex: 0,
+  currentItemIndex: 0,
   score: 0,
   attempts: 0,
   isCorrect: null,
-  usedMovieIds: [],
+  usedItemIds: [],
   isGameComplete: false,
 };
 
 export const useGameStore = create<GameStore>((set, get) => ({
   ...initialState,
-  currentMovie: null,
+  currentItem: null,
+
+  setGameMode: (mode: GameMode) => {
+    const { selectedCategory } = get();
+    set({ gameMode: mode });
+    get().setCategory(selectedCategory);
+  },
 
   setCategory: (category: Category) => {
-    const movies = getMoviesByCategory(category);
-    const randomMovie = getRandomMovie(movies, []);
+    const { gameMode } = get();
+    let items: GameItem[] = [];
+
+    if (gameMode === "movies") {
+      items = getMoviesByCategory(category);
+    } else {
+      items = getSongsByCategory(category);
+    }
+
+    const randomItem = getRandomItem(items, []);
 
     set({
       ...initialState,
+      gameMode: get().gameMode,
       selectedCategory: category,
-      currentMovie: randomMovie,
-      usedMovieIds: randomMovie ? [randomMovie.id] : [],
+      currentItem: randomItem,
+      usedItemIds: randomItem ? [randomItem.id] : [],
     });
   },
 
   submitAnswer: (answer: string) => {
-    const { currentMovie } = get();
-    if (!currentMovie) return;
+    const { currentItem } = get();
+    if (!currentItem) return;
 
-    const correct = isAnswerCorrect(answer, currentMovie.title);
+    const correct = isAnswerCorrect(answer, currentItem.title);
     const newAttempts = get().attempts + 1;
     const newScore = correct ? get().score + 1 : get().score;
 
@@ -54,31 +72,39 @@ export const useGameStore = create<GameStore>((set, get) => ({
     });
   },
 
-  nextMovie: () => {
-    const { selectedCategory, usedMovieIds } = get();
-    const movies = getMoviesByCategory(selectedCategory);
-    const nextMovie = getRandomMovie(movies, usedMovieIds);
+  nextItem: () => {
+    const { selectedCategory, usedItemIds, gameMode } = get();
+    let items: GameItem[] = [];
 
-    if (!nextMovie) {
-      // All movies used
+    if (gameMode === "movies") {
+      items = getMoviesByCategory(selectedCategory);
+    } else {
+      items = getSongsByCategory(selectedCategory);
+    }
+
+    const nextItem = getRandomItem(items, usedItemIds);
+
+    if (!nextItem) {
+      // All items used
       set({
         isGameComplete: true,
-        currentMovie: null,
+        currentItem: null,
       });
       return;
     }
 
     set({
-      currentMovie: nextMovie,
-      currentMovieIndex: get().currentMovieIndex + 1,
-      usedMovieIds: [...usedMovieIds, nextMovie.id],
+      currentItem: nextItem,
+      currentItemIndex: get().currentItemIndex + 1,
+      usedItemIds: [...usedItemIds, nextItem.id],
       isCorrect: null,
       attempts: 0,
     });
   },
 
   resetGame: () => {
-    const { selectedCategory } = get();
+    const { selectedCategory, gameMode } = get();
+    set({ ...initialState, gameMode, selectedCategory });
     get().setCategory(selectedCategory);
   },
 }));

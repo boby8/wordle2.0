@@ -6,13 +6,14 @@ import CategorySelector from "./CategorySelector";
 import MovieCard from "./MovieCard";
 
 export default function GameController() {
-  const { setCategory, selectedCategory, currentMovie } = useGameStore();
+  const { setCategory, selectedCategory, currentItem } = useGameStore();
 
   useEffect(() => {
-    // Initialize with first movie if not already set
-    if (!currentMovie) {
+    // Initialize with first item if not already set
+    if (!currentItem) {
       setCategory(selectedCategory);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -21,10 +22,10 @@ export default function GameController() {
         {/* Header */}
         <div className="text-center mb-8 sm:mb-12">
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent mb-2">
-            🎬 Movie Charades
+            🎬 Movie & Song Charades
           </h1>
           <p className="text-gray-600 dark:text-gray-400 text-sm sm:text-base">
-            Guess the movie from emojis!
+            Guess movies and songs from emojis!
           </p>
         </div>
 

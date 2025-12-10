@@ -5,28 +5,29 @@ import { motion } from "framer-motion";
 import { useGameStore } from "../store/gameStore";
 
 export default function AnswerBox() {
-  const { currentMovie, submitAnswer, isCorrect, nextMovie } = useGameStore();
+  const { currentItem, submitAnswer, isCorrect, nextItem, gameMode } =
+    useGameStore();
   const [answer, setAnswer] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    // Focus input when movie changes (answer resets via key prop)
+    // Focus input when item changes (answer resets via key prop)
     inputRef.current?.focus();
-  }, [currentMovie?.id]);
+  }, [currentItem?.id]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!answer.trim() || !currentMovie) return;
+    if (!answer.trim() || !currentItem) return;
 
     submitAnswer(answer);
   };
 
   const handleNext = () => {
-    nextMovie();
+    nextItem();
     setAnswer("");
   };
 
-  if (!currentMovie) return null;
+  if (!currentItem) return null;
 
   return (
     <div className="w-full max-w-md mx-auto">
@@ -42,12 +43,14 @@ export default function AnswerBox() {
           transition={{ duration: 0.5 }}
         >
           <input
-            key={currentMovie?.id} // Reset input when movie changes
+            key={currentItem?.id} // Reset input when item changes
             ref={inputRef}
             type="text"
             value={answer}
             onChange={(e) => setAnswer(e.target.value)}
-            placeholder="Guess the movie..."
+            placeholder={
+              gameMode === "movies" ? "Guess the movie..." : "Guess the song..."
+            }
             disabled={isCorrect === true}
             className={`
               w-full px-4 py-3 text-lg rounded-xl border-2 transition-all duration-200
@@ -72,7 +75,7 @@ export default function AnswerBox() {
             onClick={handleNext}
             className="w-full px-6 py-3 bg-gradient-to-r from-green-500 to-emerald-500 text-white rounded-xl font-semibold hover:from-green-600 hover:to-emerald-600 transition-all duration-200 shadow-lg"
           >
-            Next Movie →
+            Next →
           </motion.button>
         ) : (
           <button

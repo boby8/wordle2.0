@@ -1,18 +1,18 @@
 "use client";
 
 import { motion } from "framer-motion";
-import type { Movie } from "../types/game";
+import type { GameItem } from "../types/game";
 
 interface EmojiDisplayProps {
-  movie: Movie | null;
+  item: GameItem | null;
 }
 
-export default function EmojiDisplay({ movie }: EmojiDisplayProps) {
-  if (!movie) return null;
+export default function EmojiDisplay({ item }: EmojiDisplayProps) {
+  if (!item) return null;
 
   return (
     <div className="flex flex-wrap justify-center gap-4 mb-8">
-      {movie.emojis.map((emoji, index) => (
+      {item.emojis.map((emoji, index) => (
         <motion.div
           key={index}
           initial={{ scale: 0, rotate: -180 }}

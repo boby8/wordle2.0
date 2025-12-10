@@ -6,7 +6,7 @@ import AnswerBox from "./AnswerBox";
 import { useGameStore } from "../store/gameStore";
 
 export default function MovieCard() {
-  const { currentMovie, isCorrect, score, isGameComplete } = useGameStore();
+  const { currentItem, isCorrect, score, isGameComplete } = useGameStore();
 
   if (isGameComplete) {
     return (
@@ -50,8 +50,17 @@ export default function MovieCard() {
 
       {/* Emoji Display */}
       <div className="mb-8">
-        <EmojiDisplay movie={currentMovie} />
+        <EmojiDisplay item={currentItem} />
       </div>
+
+      {/* Show artist for songs */}
+      {currentItem && "artist" in currentItem && (
+        <div className="text-center mb-4">
+          <p className="text-sm text-gray-500 dark:text-gray-400">
+            by {currentItem.artist}
+          </p>
+        </div>
+      )}
 
       {/* Answer Box */}
       <AnswerBox />

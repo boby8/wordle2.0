@@ -191,3 +191,17 @@ export function getRandomMovie(
   const randomIndex = Math.floor(Math.random() * availableMovies.length);
   return availableMovies[randomIndex];
 }
+
+/**
+ * Get a random item (movie or song) that hasn't been used
+ */
+export function getRandomItem<T extends { id: string }>(
+  items: T[],
+  usedIds: string[]
+): T | null {
+  const available = items.filter((item) => !usedIds.includes(item.id));
+  if (available.length === 0) return null;
+
+  const randomIndex = Math.floor(Math.random() * available.length);
+  return available[randomIndex];
+}
