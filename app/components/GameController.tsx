@@ -10,6 +10,9 @@ import PlayAgainButton from "./PlayAgainButton";
 import ThemeSwitcher from "./ThemeSwitcher";
 import StatisticsModal from "./StatisticsModal";
 import HowToPlayModal from "./HowToPlayModal";
+import Confetti from "./Confetti";
+import ShareButton from "./ShareButton";
+import DailyPuzzleIndicator from "./DailyPuzzleIndicator";
 
 export default function GameController() {
   const {
@@ -20,6 +23,7 @@ export default function GameController() {
     hasWon,
     puzzle,
     errorMessage,
+    attempts,
   } = useGameStore();
   const { theme } = useTheme();
   const [showStats, setShowStats] = useState(false);
@@ -86,8 +90,10 @@ export default function GameController() {
         }
       ></div>
       <ThemeSwitcher />
+      <Confetti trigger={hasWon && isGameOver} />
 
       <div className="w-full max-w-3xl rounded-xl p-6 sm:p-8 flex flex-col items-center shadow-2xl">
+        <DailyPuzzleIndicator puzzle={puzzle} />
         <div className="mb-6 sm:mb-8 w-full">
           <div className="flex items-center justify-between gap-4 relative py-3 px-4 rounded-lg bg-[var(--tile-empty)]/30 backdrop-blur-sm border border-[var(--tile-border)]/50 shadow-lg">
             <div className="flex gap-3">
@@ -114,16 +120,34 @@ export default function GameController() {
             <div className="w-[140px]"></div>
           </div>
           {isGameOver && (
-            <div className="text-center mt-4">
+            <div className="text-center mt-4 space-y-3">
               {hasWon ? (
-                <div className="text-[var(--success)] text-2xl sm:text-3xl animate-bounce">
-                  🎉 You Won! 🎉
-                </div>
+                <>
+                  <div className="text-[var(--success)] text-2xl sm:text-3xl animate-bounce">
+                    🎉 You Won! 🎉
+                  </div>
+                  <div className="flex justify-center gap-3">
+                    <ShareButton
+                      attempts={attempts}
+                      puzzle={puzzle}
+                      hasWon={hasWon}
+                    />
+                  </div>
+                </>
               ) : (
-                <div className="text-[var(--present)] text-xl sm:text-2xl animate-pulse">
-                  Game Over! Answer:{" "}
-                  <span className="font-mono">{puzzle.answer}</span>
-                </div>
+                <>
+                  <div className="text-[var(--present)] text-xl sm:text-2xl animate-pulse">
+                    Game Over! Answer:{" "}
+                    <span className="font-mono">{puzzle.answer}</span>
+                  </div>
+                  <div className="flex justify-center gap-3">
+                    <ShareButton
+                      attempts={attempts}
+                      puzzle={puzzle}
+                      hasWon={hasWon}
+                    />
+                  </div>
+                </>
               )}
             </div>
           )}
