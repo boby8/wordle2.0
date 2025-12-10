@@ -19,7 +19,7 @@ export interface EmojiWordMapping {
 // Pre-defined emoji-to-word mappings
 export const emojiMappings: EmojiWordMapping[] = [
   {
-    emojis: ["🧃", "🍌", "🍓"],
+    emojis: ["🍓", "🍌", "🫐", "🥭", "🥛", "🧊", "🍹", "😋"],
     words: [
       "CONTAINER",
       "BEVERAGE",
@@ -45,7 +45,7 @@ export const emojiMappings: EmojiWordMapping[] = [
     correctAnswer: "smoothie",
   },
   {
-    emojis: ["🥤", "🍹", "☕"],
+    emojis: ["🥤", "🍵", "☕", "🍺", "🍷", "🍸", "🍹", "🧃"],
     words: [
       "BEVERAGE",
       "DRINK",
@@ -71,7 +71,7 @@ export const emojiMappings: EmojiWordMapping[] = [
     correctAnswer: "beverage",
   },
   {
-    emojis: ["🍎", "🍏"],
+    emojis: ["🍎", "🍌", "🍇", "🍓", "🍒", "🍍"],
     words: [
       "APPLE",
       "FRUIT",
@@ -96,7 +96,7 @@ export const emojiMappings: EmojiWordMapping[] = [
     correctAnswer: "fruits",
   },
   {
-    emojis: ["🐶", "🐱"],
+    emojis: ["🐶", "🐱", "🐰"],
     words: [
       "PET",
       "ANIMAL",
@@ -122,7 +122,7 @@ export const emojiMappings: EmojiWordMapping[] = [
     correctAnswer: "pet",
   },
   {
-    emojis: ["🌞", "🌙"],
+    emojis: ["⏰", "🕒", "🌞", "🌙"],
     words: [
       "DAY",
       "NIGHT",
@@ -148,7 +148,7 @@ export const emojiMappings: EmojiWordMapping[] = [
     correctAnswer: "time",
   },
   {
-    emojis: ["🚗", "🚲"],
+    emojis: ["🚗", "🚌", "🚕", "🚙", "🚓", "🚑", "🚒"],
     words: [
       "VEHICLE",
       "TRANSPORT",
@@ -174,7 +174,7 @@ export const emojiMappings: EmojiWordMapping[] = [
     correctAnswer: "vehicle",
   },
   {
-    emojis: ["⚽", "🏀"],
+    emojis: ["⚽", "🏀", "🏈", "⚾", "🥎", "🎾", "🏐", "🏓", "🏸"],
     words: [
       "SPORT",
       "GAME",
@@ -201,7 +201,7 @@ export const emojiMappings: EmojiWordMapping[] = [
     correctAnswer: "sport",
   },
   {
-    emojis: ["📱", "💻"],
+    emojis: ["📱", "💻", "🖥️", "⌚", "🎧", "📷"],
     words: [
       "DEVICE",
       "TECHNOLOGY",
@@ -227,7 +227,23 @@ export const emojiMappings: EmojiWordMapping[] = [
     correctAnswer: "device",
   },
   {
-    emojis: ["🍕", "🍔"],
+    emojis: [
+      "🍕",
+      "🍔",
+      "🌭",
+      "🍟",
+      "🍗",
+      "🍖",
+      "🥓",
+      "🥩",
+      "🍝",
+      "🍜",
+      "🍲",
+      "🍛",
+      "🍣",
+      "🍱",
+      "🥘",
+    ],
     words: [
       "FOOD",
       "MEAL",
@@ -253,7 +269,23 @@ export const emojiMappings: EmojiWordMapping[] = [
     correctAnswer: "fastfood",
   },
   {
-    emojis: ["🌊", "🏖️"],
+    emojis: [
+      "🌊",
+      "🏖️",
+      "🏝️",
+      "🌴",
+      "🌅",
+      "🌇",
+      "🏄",
+      "🤿",
+      "⛱️",
+      "🦀",
+      "🐚",
+      "🌺",
+      "🌻",
+      "🌞",
+      "☀️",
+    ],
     words: [
       "BEACH",
       "OCEAN",

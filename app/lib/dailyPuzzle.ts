@@ -35,11 +35,20 @@ export function getDailyPuzzle(date?: Date): Puzzle {
   // Always use correctAnswer as the answer (fixed per emoji combination)
   const answer = emojiMapping.correctAnswer.toUpperCase();
 
+  // Generate emoji array matching max attempts (6) by cycling through available emojis
+  const baseEmojis = emojiMapping.emojis;
+  const maxAttempts = GAME_CONSTANTS.GRID.MAX_ATTEMPTS;
+  const emojis: string[] = [];
+
+  for (let i = 0; i < maxAttempts; i++) {
+    emojis.push(baseEmojis[i % baseEmojis.length]);
+  }
+
   const puzzle = {
     id: `daily-${dateString}`,
     requiredLength: answer.length,
     answer,
-    emojis: emojiMapping.emojis,
+    emojis,
     maxAttempts: GAME_CONSTANTS.GRID.MAX_ATTEMPTS,
     allowedWords: words.map((w) => w.toUpperCase()), // All words from this emoji mapping (for validation)
   };

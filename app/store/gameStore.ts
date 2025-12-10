@@ -21,7 +21,7 @@ const initialState: GameState = {
   attempts: [],
   currentGuess: "",
   currentRow: 0,
-  revealedEmojis: 1,
+  revealedEmojis: 1, // Start with 1 emoji, reveal one more per attempt
   isGameOver: false,
   hasWon: false,
   keyboardState: {},
@@ -119,6 +119,7 @@ export const useGameStore = create<GameStore>((set, get) => ({
       attempts: newAttempts,
       currentGuess: "",
       currentRow: newRow,
+      // Reveal one more emoji per attempt, capped at total emoji count (which equals word length)
       revealedEmojis: Math.min(newAttempts.length + 1, puzzle.emojis.length),
       isGameOver: isGameOverNow,
       hasWon,
