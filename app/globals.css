@@ -471,3 +471,31 @@ button:hover:not(:disabled) {
 button:active:not(:disabled) {
   transform: translateY(0);
 }
+
+/* Memory Match Card Flip Animation */
+.memory-card {
+  perspective: 1000px;
+  transform-style: preserve-3d;
+}
+
+.memory-card-front,
+.memory-card-back {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.memory-card-front {
+  transform: rotateY(0deg);
+}
+
+.memory-card-back {
+  transform: rotateY(180deg);
+}
+
+.memory-card.flipped .memory-card-front {
+  transform: rotateY(180deg);
+}
+
+.memory-card.flipped .memory-card-back {
+  transform: rotateY(0deg);
+}

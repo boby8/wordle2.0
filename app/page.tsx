@@ -23,10 +23,11 @@ const games: Game[] = [
   },
   {
     id: "matching-tiles",
-    name: "Matching Tiles",
-    description: "Coming soon! Match tiles in this exciting puzzle game.",
+    name: "Memory Match",
+    description:
+      "Match emoji pairs! Test your memory with this fun matching game.",
     icon: "🧩",
-    route: null,
+    route: "/routes/matching-tiles",
     color: "var(--present)",
   },
 ];
