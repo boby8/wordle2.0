@@ -13,6 +13,7 @@ import HowToPlayModal from "../../../shared/components/HowToPlayModal";
 import Confetti from "../../../shared/components/Confetti";
 import ShareButton from "./ShareButton";
 import DailyPuzzleIndicator from "./DailyPuzzleIndicator";
+import BackButton from "../../../shared/components/BackButton";
 
 export default function GameController() {
   const {
@@ -89,6 +90,10 @@ export default function GameController() {
             : undefined
         }
       ></div>
+      {/* Back Button - Fixed to viewport extreme left */}
+      <div className="fixed top-4 left-0 sm:top-6 sm:left-0 z-50 pl-2 sm:pl-4">
+        <BackButton />
+      </div>
       <ThemeSwitcher />
       <Confetti trigger={hasWon && isGameOver} />
 

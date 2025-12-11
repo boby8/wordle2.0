@@ -30,6 +30,14 @@ const games: Game[] = [
     route: "/routes/matching-tiles",
     color: "var(--present)",
   },
+  {
+    id: "movie-charades",
+    name: "Movie Charades",
+    description: "Guess Bollywood and Hollywood movies from emoji clues!",
+    icon: "🎬",
+    route: "/routes/movie-charades",
+    color: "var(--highlight)",
+  },
 ];
 
 export default function Home() {
@@ -47,7 +55,7 @@ export default function Home() {
         </div>
 
         {/* Games Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {games.map((game) => {
             const isComingSoon = game.route === null;
             const cardClassName = `group relative p-6 rounded-xl border-2 border-[var(--tile-border)] bg-[var(--tile-empty)]/30 backdrop-blur-sm hover:border-[var(--highlight)] transition-all duration-300 ${
