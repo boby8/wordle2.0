@@ -38,6 +38,14 @@ const games: Game[] = [
     route: "/routes/movie-charades",
     color: "var(--highlight)",
   },
+  {
+    id: "emoji-memory-grid",
+    name: "Memory Grid",
+    description: "Memorize emojis and place them correctly!",
+    icon: "🧠",
+    route: "/routes/emoji-memory-grid",
+    color: "var(--highlight)",
+  },
 ];
 
 export default function Home() {
