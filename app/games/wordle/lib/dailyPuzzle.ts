@@ -8,6 +8,13 @@ import { GAME_CONSTANTS } from "./constants";
  * Uses UTC date to ensure consistency across timezones
  */
 export function getDailyPuzzle(date?: Date): Puzzle {
+  // Safety check: ensure emojiMappings is populated
+  if (!emojiMappings || emojiMappings.length === 0) {
+    throw new Error(
+      "emojiMappings is empty or undefined. Cannot generate puzzle."
+    );
+  }
+
   // Use UTC date to ensure consistency across timezones
   // If no date provided, use current UTC date
   const now = date || new Date();
@@ -21,6 +28,14 @@ export function getDailyPuzzle(date?: Date): Puzzle {
   // Get emoji mapping based on seed (deterministic)
   const mappingIndex = seed % emojiMappings.length;
   const emojiMapping = emojiMappings[mappingIndex];
+
+  // Safety check: ensure mapping is valid
+  if (!emojiMapping || !emojiMapping.words || !emojiMapping.correctAnswer) {
+    throw new Error(
+      `Invalid emoji mapping at index ${mappingIndex}. Mapping: ${JSON.stringify(emojiMapping)}`
+    );
+  }
+
   const words = emojiMapping.words;
 
   // Log selected mapping
@@ -44,14 +59,34 @@ export function getDailyPuzzle(date?: Date): Puzzle {
     emojis.push(baseEmojis[i % baseEmojis.length]);
   }
 
+  // Ensure allowedWords includes the answer (in case correctAnswer isn't in words array)
+  const allowedWordsUpper = words.map((w) => w.toUpperCase());
+  if (!allowedWordsUpper.includes(answer)) {
+    console.warn(
+      `Answer "${answer}" not in words array, adding it to allowedWords`
+    );
+    allowedWordsUpper.push(answer);
+  }
+
   const puzzle = {
     id: `daily-${dateString}`,
     requiredLength: answer.length,
     answer,
     emojis,
     maxAttempts: GAME_CONSTANTS.GRID.MAX_ATTEMPTS,
-    allowedWords: words.map((w) => w.toUpperCase()), // All words from this emoji mapping (for validation)
+    allowedWords: allowedWordsUpper,
   };
+
+  // Log generated puzzle for debugging
+  console.log("Generated puzzle:", {
+    id: puzzle.id,
+    answer: puzzle.answer,
+    answerLength: puzzle.answer.length,
+    requiredLength: puzzle.requiredLength,
+    emojisCount: puzzle.emojis.length,
+    allowedWordsCount: puzzle.allowedWords.length,
+    answerInAllowedWords: puzzle.allowedWords.includes(puzzle.answer),
+  });
 
   return puzzle;
 }

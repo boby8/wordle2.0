@@ -34,11 +34,26 @@ export const useGameStore = create<GameStore>((set, get) => ({
 
   initializeGame: (puzzle: Puzzle) => {
     // Validate puzzle before initializing
-    if (!validatePuzzle(puzzle)) {
-      console.error("Invalid puzzle data:", puzzle);
+    if (!puzzle || typeof puzzle !== "object" || Object.keys(puzzle).length === 0) {
+      console.error("Invalid puzzle data: puzzle is empty or null", puzzle);
       set({
         ...initialState,
-        errorMessage: "Invalid puzzle data",
+        errorMessage: "Failed to load puzzle. Please refresh the page.",
+      });
+      return;
+    }
+
+    if (!validatePuzzle(puzzle)) {
+      console.error("Invalid puzzle data: validation failed", {
+        id: puzzle?.id,
+        hasAnswer: !!puzzle?.answer,
+        hasEmojis: Array.isArray(puzzle?.emojis),
+        emojisLength: puzzle?.emojis?.length,
+        hasAllowedWords: Array.isArray(puzzle?.allowedWords),
+      });
+      set({
+        ...initialState,
+        errorMessage: "Invalid puzzle data. Please refresh the page.",
       });
       return;
     }
