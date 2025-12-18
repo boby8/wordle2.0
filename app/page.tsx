@@ -18,7 +18,7 @@ const games: Game[] = [
     description:
       "Guess the word based on emoji hints. Each attempt reveals more emojis!",
     icon: "📝",
-    route: "/routes/wordle",
+    route: "/wordle",
     color: "var(--correct)",
   },
   {
@@ -27,7 +27,7 @@ const games: Game[] = [
     description:
       "Match emoji pairs! Test your memory with this fun matching game.",
     icon: "🧩",
-    route: "/routes/matching-tiles",
+    route: "/matching-tiles",
     color: "var(--present)",
   },
   {
@@ -35,7 +35,7 @@ const games: Game[] = [
     name: "Movie Charades",
     description: "Guess Bollywood and Hollywood movies from emoji clues!",
     icon: "🎬",
-    route: "/routes/movie-charades",
+    route: "/movie-charades",
     color: "var(--highlight)",
   },
   {
@@ -43,7 +43,16 @@ const games: Game[] = [
     name: "Memory Grid",
     description: "Memorize emojis and place them correctly!",
     icon: "🧠",
-    route: "/routes/emoji-memory-grid",
+    route: "/emoji-memory-grid",
+    color: "var(--highlight)",
+  },
+  {
+    id: "signal-vs-noise",
+    name: "Signal vs Noise",
+    description:
+      "Focus on the signal, ignore the noise! Click the right items based on rules.",
+    icon: "🎯",
+    route: "/signal-vs-noise",
     color: "var(--highlight)",
   },
 ];
